@@ -1,0 +1,5 @@
+pandas==1.3.5
+pandasql==0.7.3
+prefect==0.15.11
+pymongo==4.0.1
+sqlalchemy==1.4.29

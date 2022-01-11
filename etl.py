@@ -77,6 +77,6 @@ if __name__ == '__main__':
 
         data_to_populate = transform(covid_df, variant_df)
         load(data_to_populate, True)
-    flow.run_config = LocalRun(env={"SOME_VAR": "value"})
+    flow.run_config = LocalRun()
     flow.register(project_name="covid-etl")
     flow.run()

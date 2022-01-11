@@ -15,7 +15,7 @@ of other data pipeline engines and orchestrators, plus providing out of the box 
 * Loading and database
   * Postgres: Looking into the nature of the data, it is an OLAP non-normalised kind of data where ideally stored in a no-sql db, but however 
   in our case key-value is one to one ( i.e no column is of type collection/dict) so it is feasible to store it in a postgres db.
-  which we can leverage the features of using SQLAlchemy to enable data quality/availability measuring by using
+  which we can leverage the features of using SQLAlchemy to enable data quality/availability measuring. 
 
 
 ### Remarks
@@ -51,4 +51,10 @@ prefect agent local start
 * The application use postgres db to store transformed data, for that we need postgres container running with port listening to 5433 since prefect has its own postgres db using the default port. 
 ```bash
 docker run --name some-postgres -p 5433:5432 -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+```
+
+
+* Then you can run the application and monitor the flow on http://localhost:8080/default when running
+```buildoutcfg
+python3 etl.py
 ```

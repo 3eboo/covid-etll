@@ -20,17 +20,17 @@
 
 ### Remarks
 
-In usual data use-cases, different OLTPs database becomes the source of our OLAP, unlike in this case the pipeline is
-reversed somehow. For setup and deployment, ideally I would containerize everything even the flow code, as prefect's
-server and agent are already containerized I ve tried to dockerize this task as well, I ve pushed the dockerfile and
-compose that I would use in that case, this for some reason didn't work!
-However, running using [local agent](https://docs.prefect.io/api/latest/run_configs.html#localrun) is used to test at
-the end.
+* In usual data use-cases, different OLTPs database becomes the source of our OLAP, unlike in this case the pipeline is
+  reversed somehow.
+* For setup and deployment, ideally I would containerize everything even the flow code, as prefect's server and agent
+  are already containerized I ve tried to dockerize task (code + postgres) as well, you can check dockerfile and compose
+  that I tried to use in that case, this for some reason didn't work! However, running
+  with [local agent](https://docs.prefect.io/api/latest/run_configs.html#localrun) is the methodology I ended up using.
 
-Additionally, I am unfortunate that the owners of owid/covid-19-data repo ve removed the variant dataset that I was
-using to do the task!
-However the application works so if you have any version of variants' dataset downloaded you can test with, just change
-the path of `variant_url` parameter to its path!
+* Additionally, I am unfortunate that the owners of owid/covid-19-data repo ve removed the variant dataset that I was
+  using to do the task!
+  However the application works so if you have any version of variants' dataset downloaded you can test with, just
+  change the path of `variant_url` parameter to its path!
 
 ### Project setup and Requirements to run our prefect flow:
 

@@ -26,7 +26,7 @@ def extract(url: str) -> pd.DataFrame:
 def transform(covid_df: pd.DataFrame, variant_df: pd.DataFrame) -> pd.DataFrame:
     logger = prefect.context.get("logger")
     if not covid_df.empty:
-        if not variant_df:
+        if not variant_df.empty:
             logger.info("computing maximum variant from variant dataframe")
             max_variant_query = 'SELECT location, date, variant, MAX(num_sequences) AS max_sequences' \
                                 'FROM variant_df GROUP BY location, date'

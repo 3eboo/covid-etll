@@ -78,3 +78,5 @@ docker run --name some-postgres -p 5433:5432 -e POSTGRES_PASSWORD=mysecretpasswo
 ```bash
 python3 etl.py
 ```
+
+Happy review and looking forward to meet you guys ;) 

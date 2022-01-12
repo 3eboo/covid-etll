@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  covid-etl:
+    build: .
+    command: python3 etl.py
+    networks:
+      - counter-net
+    volumes:
+      - type: volume
+        source: counter-vol
+        target: /code
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - "4533:5432"
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+
+    networks:
+      counter-net:
+
+networks:
+  counter-net:
+
+volumes:
+  counter-vol:

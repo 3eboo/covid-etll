@@ -1,4 +1,5 @@
 from datetime import timedelta, datetime
+from urllib.error import HTTPError
 
 import pandas as pd
 import pandasql
@@ -15,28 +16,27 @@ def extract(url: str) -> pd.DataFrame:
         df = pd.read_csv(url)
         # casting date column to datetime object.
         df['date'] = pd.to_datetime(df['date'])
-    except Exception as e:
-        raise RuntimeError(f'Failed to fetch data from {url} reason:{e}')
+    except HTTPError:
+        return pd.DataFrame()
     else:
         return df
 
 
 @task(name='transform')
 def transform(covid_df: pd.DataFrame, variant_df: pd.DataFrame) -> pd.DataFrame:
-    if not covid_df.empty and not variant_df.empty:
-        logger = prefect.context.get("logger")
-        logger.info("computing maximum variant from variant dataframe")
-        max_variant_query = 'SELECT location, date, variant, MAX(num_sequences) AS max_sequences' \
-                            'FROM variant_df GROUP BY location, date'
-        max_variant_df = pandasql.sqldf(max_variant_query)
+    logger = prefect.context.get("logger")
+    if not covid_df.empty:
+        if not variant_df.empty:
+            logger.info("computing maximum variant from variant dataframe")
+            max_variant_query = 'SELECT location, date, variant, MAX(num_sequences) AS max_sequences' \
+                                'FROM variant_df GROUP BY location, date'
+            max_variant_df = pandasql.sqldf(max_variant_query)
 
-        logger.info("adding extra columns variant and maximum num_sequences")
-        covid_variant = covid_df.merge(max_variant_df)
-
-        logger.info("casting date column to datetime object")
-        covid_variant['date'] = pd.to_datetime(covid_variant['date'])
-
-        return covid_variant
+            logger.info("adding extra columns variant and maximum num_sequences")
+            covid_variant = covid_df.merge(max_variant_df)
+            return covid_variant
+        else:
+            return covid_df
     else:
         raise RuntimeError(f'covid data: {covid_df.info()} variant data: {variant_df.info()}')
 

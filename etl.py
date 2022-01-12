@@ -5,7 +5,6 @@ import pandasql
 from prefect import task, Flow, Parameter
 from prefect.run_configs import LocalRun
 from prefect.schedules import IntervalSchedule
-from prefect.storage import Docker
 from prefect.tasks import prefect
 from sqlalchemy import create_engine
 

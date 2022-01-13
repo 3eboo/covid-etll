@@ -28,7 +28,7 @@ def transform(covid_df: pd.DataFrame, variant_df: pd.DataFrame) -> pd.DataFrame:
     if not covid_df.empty:
         if not variant_df.empty:
             logger.info("computing maximum variant from variant dataframe")
-            max_variant_query = 'SELECT location, date, variant, MAX(num_sequences) AS max_sequences' \
+            max_variant_query = 'SELECT location, date, variant, MAX(num_sequences) AS max_sequences ' \
                                 'FROM variant_df GROUP BY location, date'
             max_variant_df = pandasql.sqldf(max_variant_query)
 

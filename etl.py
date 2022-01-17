@@ -38,7 +38,7 @@ def transform(covid_df: pd.DataFrame, variant_df: pd.DataFrame) -> pd.DataFrame:
         else:
             return covid_df
     else:
-        raise RuntimeError(f'covid data: {covid_df.info()} variant data: {variant_df.info()}')
+        raise RuntimeError(f'covid data frame is empty')
 
 
 def db_connection():

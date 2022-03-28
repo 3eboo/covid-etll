@@ -44,12 +44,12 @@ def transform(covid_df: pd.DataFrame, variant_df: pd.DataFrame) -> pd.DataFrame:
 def db_connection():
     # In a better setup I would call like that:
     # 'postgresql://{os.environ['POSTGRES_USER']}:{os.environ['POSTGRES_PASSWORD']}@localhost:5433/{os.environ['POSTGRES_DB']}'
-    conn_string = 'postgresql://postgres:mysecretpassword@localhost:5433/postgres'
+    conn_string = 'postgresql://postgres:mysecretpassword@localhost:4533/postgres'
     return create_engine(conn_string)
 
 
 @task(name='load')
-def load(data: pd.DataFrame, populate_all=True) -> pd.DataFrame:
+def load(data: pd.DataFrame, populate_all=True):
     logger = prefect.context.get("logger")
 
     logger.info('connecting to postgres')

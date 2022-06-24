@@ -1,4 +1,4 @@
-# Simple ETL application for Popcore technical challenge  #
+# Simple ETL application  #
 
 - - - - 
 

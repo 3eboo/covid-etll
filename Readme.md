@@ -1,4 +1,4 @@
-# Simple ETL application for Popcore technical challenge  #
+# Simple ETL application  #
 
 - - - - 
 
@@ -17,20 +17,6 @@
       no-sql db, but however in our case key-value is one to one ( i.e no column is of type collection/dict) so it is
       feasible to store it in a postgres db. which we can leverage the features of using SQLAlchemy to enable data
       quality/availability measuring.
-
-### Remarks
-
-* In usual data use-cases, different OLTPs database becomes the source of our OLAP, unlike in this case the pipeline is
-  reversed somehow.
-* For setup and deployment, ideally I would containerize everything even the flow code, as prefect's server and agent
-  are already containerized I ve tried to dockerize task (code + postgres) as well, you can check dockerfile and compose
-  that I tried to use in that case, this for some reason didn't work! However, running
-  with [local agent](https://docs.prefect.io/api/latest/run_configs.html#localrun) is the methodology I ended up using.
-
-* Additionally, the owners of owid/covid-19-data repo ve removed the variant dataset that I was using to do the
-  aggregate!
-  However the aggrtegation part of application works so if you have any version of variants' dataset downloaded you can
-  test with, just change the path of `variant_url` parameter to its path!
 
 ### Project setup and Requirements to run our prefect flow:
 
@@ -80,4 +66,3 @@ docker run --name some-postgres -p 5433:5432 -e POSTGRES_PASSWORD=mysecretpasswo
 python3 etl.py
 ```
 
-Happy review and looking forward to meet you guys ;) 

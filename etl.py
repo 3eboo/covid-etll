@@ -1,6 +1,6 @@
 from datetime import timedelta, datetime
 from urllib.error import HTTPError
-
+import os
 import pandas as pd
 import pandasql
 from prefect import task, Flow, Parameter
@@ -44,7 +44,7 @@ def transform(covid_df: pd.DataFrame, variant_df: pd.DataFrame) -> pd.DataFrame:
 def db_connection():
     # In a better setup I would call like that:
     # 'postgresql://{os.environ['POSTGRES_USER']}:{os.environ['POSTGRES_PASSWORD']}@localhost:5433/{os.environ['POSTGRES_DB']}'
-    conn_string = "postgresql://{os.environ['POSTGRES_USER']}:{os.environ['POSTGRES_PASSWORD']}@localhost:5433/{os.environ['POSTGRES_DB']}"
+    conn_string = f"postgresql://{os.environ['POSTGRES_USER']}:{os.environ['POSTGRES_PASSWORD']}@localhost:5433/{os.environ['POSTGRES_DB']}"
     return create_engine(conn_string)
 
 

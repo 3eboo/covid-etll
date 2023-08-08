@@ -5,6 +5,10 @@ services:
     command: python3 etl.py
     networks:
       - counter-net
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=postgres
     volumes:
       - type: volume
         source: counter-vol
